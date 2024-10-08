@@ -116,6 +116,7 @@ app.post('/formStructure', (req, res)=> {
     let jsonPayload = req.body.reqBody.jsonPayload;
     nodeMap = {}
     edgeMap = {}
+    jsonPayload = JSON.parse(jsonPayload.replace(/\:null/gi, "\:\"\"")); 
     let jsonBody = JSON.parse(jsonPayload);
     if(Array.isArray(jsonBody)) {
         let newJsonBody = {"root":jsonBody}
