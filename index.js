@@ -116,8 +116,14 @@ app.post('/formStructure', (req, res)=> {
     let jsonPayload = req.body.reqBody.jsonPayload;
     nodeMap = {}
     edgeMap = {}
-    jsonPayload = jsonPayload.replace(/\:null/gi, "\:\"\""); 
-    let jsonBody = JSON.parse(jsonPayload);
+    let intrObj = JSON.parse(jsonPayload);
+    let intrJson = JSON.stringify(intrObj, (key,value)=>{
+        if(value == null){
+            return "";
+        }
+        return value;
+    });
+    let jsonBody = JSON.parse(intrJson);
     if(Array.isArray(jsonBody)) {
         let newJsonBody = {"root":jsonBody}
         generateNodeAndEdges(newJsonBody, "root") 
